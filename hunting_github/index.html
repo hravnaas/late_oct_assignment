@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <title></title>
+  </head>
+  <body>
+    <button id="btnGitHub" type="button" name="button">Get GitHub Name</button>
+    <button id="btnGitHub2" type="button" name="button">Get GitHub Name 2</button>
+    <div id="div1">
+    </div>
+
+    <script type="text/javascript">
+
+      function displayName(data)
+      {
+        $('#div1').text(data.name);
+      }
+
+      function displayName2(data)
+      {
+        $('#div1').text("Name: " + data.name);
+      }
+
+      // Using callbacks.
+      $('#btnGitHub').click(function(){
+        $('#div1').text("Obtaining name from GitHub....");
+        setTimeout(function(){
+          // Adding artificial timeout for testing purposes.
+          $.get("https://api.github.com/users/hravnaas", displayName);
+        }, 3000)
+      })
+
+      // Using promises
+      var promise = new Promise(function(resolve, reject){
+        $.get("https://api.github.com/users/hravnaas", function(data){
+          if(data)
+            resolve(data);
+          else
+            reject("It failed");
+        });
+      });
+
+      promise.then(function(data){displayName2(data)}, function(error){ alert(error) });
+
+    </script>
+  </body>
+</html>

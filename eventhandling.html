@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <button id="someButton">This is Some Button</button>
+    <script>
+      var theButton = document.getElementById('someButton');
+      theButton.addEventListener("click", whatToDoOnClick2);
+
+
+
+
+
+
+
+
+
+
+
+      // Link our variable "button" to a DOM element
+     var button = document.getElementById("someButton")
+     // add a DOM eventListener to that variable.
+     button.addEventListener("click", whatToDoOnClick);
+     // here we define the whatToDoOnClick function
+     function whatToDoOnClick() {
+       alert("You Did it!")
+     }
+
+     function whatToDoOnClick2() {
+       alert("You Did it again!")
+     }
+    </script>
+  </body>
+</html>

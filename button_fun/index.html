@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="main.js" type="text/javascript"></script> -->
+    <style>
+      .blueBackground{
+        background-color: blue;
+      }
+      .redBackground{
+        background-color: red;
+      }
+      .greenBackground{
+        background-color: darkgreen;
+        color: white;
+      }
+    </style>
+    <meta charset="utf-8">
+    <title>Button Fun</title>
+  </head>
+  <body id="body1">
+    <button id="btn1" class="blueBackground" type="button" name="button">Change Color</button>
+    <button id="btn2" class="" type="button" name="button">Hover Testbutton>
+    <script type="text/javascript">
+
+      // What to do when a button is clicked.
+      function clickAction()
+      {
+        var btn = this;
+        var currentClass = $(btn).attr('class');
+
+        if(currentClass === "blueBackground")
+          $(btn).attr("class", "redBackground");
+        else
+          $(btn).attr("class", "blueBackground");
+      }
+
+      // Assignment 1
+      $('#btn1').click(clickAction);
+
+      // Assignment 2
+      var current_btn2_class = null;
+      $('#btn2').hover(function(){
+        // Hover in
+        current_btn2_class = $(this).attr("class");
+        $(this).attr("class", "greenBackground");
+
+      }, function(){
+        // Hover out
+        $(this).attr("class", current_btn2_class);
+      });
+
+      // Assignment 3
+      // $('body').on("click", "#btn3", clickAction);
+      // $('body').keypress(function()
+      // {
+      //   $(this).append('<button id="btn3" class="blueBackground" type="button" name="button">Change Color 3</button>')
+      // });
+
+      // Assignment 4
+      var bodyElement = document.getElementById("body1");
+      bodyElement.addEventListener("keypress", function()
+        {
+          var newBtn = document.createElement("BUTTON");
+          newBtn.setAttribute("name", "button");
+          newBtn.setAttribute("id", "btn4");
+
+          var btnText = document.createTextNode("Change Color 4");
+          newBtn.appendChild(btnText);
+
+          newBtn.setAttribute("class", "redBackground");
+          newBtn.style.height="40px";
+          newBtn.style.width="80px";
+
+          this.appendChild(newBtn);
+
+          newBtn.onclick = clickAction; // make it clickable.
+        }
+      );
+
+    </script>
+  </body>
+</html>
