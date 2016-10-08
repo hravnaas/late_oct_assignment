@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="utf-8">
+  	<title>Dojo Survey Assigment</title>
+  	<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div>
+      <% for(var i = 0; i < users.length; i++) { %>
+        <p>Name: <%= users[i].name %>  </p>
+        <p>Age: <%= users[i].age %>  </p>
+      <% } %>
+    </div>
+  	<div>
+  		<form action="/users" method="post">
+  			<p>Your Name: <input type="text" name="name"></p>
+  			<p>Age: <input type="text" name="age"></p>
+  			<input type="submit" name="submit" value="Submit">
+  		</form>
+  	</div>
+  </body>
+</html>
