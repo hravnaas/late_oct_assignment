@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="utf-8">
+  	<title>Dojo Mongoose Dashboard Assigment</title>
+  	<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <h4>The Dojo Message Board</h4>
+    <hr>
+    <form id="form_msg" action="/messages/new" method="post">
+        <p>Name: <input type="text" name="name"></p>
+        <p>Message: <input type="text" name="text"></p>
+        <input type="submit" name="submit" value="Post message">
+    </form>
+    <div class="messages">
+
+      <!-- Display all the messages -->
+      <% for(var i = 0; i < messages.length; i++) { %>
+        <p>Name: <%= messages[i].name %></p>
+        <p>Message: <%= messages[i].text %></p>
+
+        <!-- Display all the comments -->
+        <div class="comment">
+          <% for(var j = 0; j < messages[i].comments.length; j++) { %>
+            <p>Name: <%= messages[i].comments[j].name %></p>
+            <p>Comment: <%= messages[i].comments[j].text %></p>
+          <% } %>
+          <form id="form_comment" action="/messages/<%= messages[i].id %>/comment" method="post">
+              <p>Name: <input type="text" name="name"></p>
+              <p>Comment: <input type="text" name="text"></p>
+              <input type="submit" name="submit" value="Post comment">
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </body>
+</html>

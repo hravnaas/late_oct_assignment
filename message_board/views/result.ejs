@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Survery Assigment Result</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div>
+		<h5>Submitted Info</h5>
+        <p>Name: <%= submitted_form.name %></p>
+        <p>Dojo Location: <%= submitted_form.location %></p>
+        <p>Favorite Language: <%= submitted_form.programming_language %></p>
+        <p>Comment: <%= submitted_form.comment %></p>
+        <form action="/">
+        	<input type="submit" name="submit" value="Go Back">
+        </form>
+	</div>
+</body>
+</html>

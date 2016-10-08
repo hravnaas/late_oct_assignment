@@ -1,0 +1,15 @@
+body div.messages{
+    width: 500px;
+    /*height: 300px;*/
+    border: 2px solid black;
+    background-color: ghostwhite;
+    padding: 30px;
+    margin-top: 20px;
+}
+.message{
+  border-bottom: 1px dotted blue
+}
+.comment{
+  padding-left: 20px;
+  color: brown;
+}
