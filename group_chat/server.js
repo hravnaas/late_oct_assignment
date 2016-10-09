@@ -2,9 +2,7 @@
 var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
-var debug = true;
-// TODO: Do we need this?
-var clients = {}
+var debug = false;
 var chat_history = [];
 
 // Helper functions
@@ -37,9 +35,6 @@ io.sockets.on('connection', function(socket)
   // TODO: History is fake for now.
   socket.emit('chat_history', { chats : chat_history });
 
-  // TODO: HANDLING ORDERING of chat messages
-
-
   // Handle incoming chat message.
   socket.on("chat_message", function(chat)
   {
@@ -47,7 +42,12 @@ io.sockets.on('connection', function(socket)
     io.emit("append_chat_message", chat);
 
     // Store the new chat message in the chat history.
-    chat_history.push( { name : chat.name, message : chat.message } );
+    chat_history.push(
+      {
+        name : chat.name,
+        message : chat.message,
+        when : chat.when
+      });
 
   });
 })

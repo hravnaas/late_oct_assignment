@@ -10,7 +10,10 @@ $(document).ready(function()
   $('#send_btn').click(function ()
   {
     var chat_message = $("#chat").val();
-    socket.emit("chat_message", { name : name, message : chat_message } );
+    socket.emit("chat_message", { name : name, message : chat_message, when : new Date() } );
+
+    // Clear out the chat message
+    $("#chat").val("");
   });
 
   // Add entire chat history to chat window.
@@ -19,11 +22,10 @@ $(document).ready(function()
   {
     if(all_chats)
     {
-      var chats = $('#chats');
       var previous_chats = all_chats.chats;
       for(var i = 0; i < previous_chats.length; i++)
       {
-        $(chats).append("<p>" + previous_chats[i].name + " : " + previous_chats[i].message + "</p>");
+        addParagraphTag("#chats", previous_chats[i].name, previous_chats[i].message, previous_chats[i].when);
       }
     }
   });
@@ -31,6 +33,13 @@ $(document).ready(function()
   // Append a single chat message.
   socket.on('append_chat_message', function(chat)
   {
-    $('#chats').append("<p>" + chat.name + " : " + chat.message + "</p>");
+    addParagraphTag("#chats", chat.name, chat.message, chat.when);
   });
+
+  // Helper function to build paragraph HTML tag with chat entry.
+  function addParagraphTag(o, name, message, when)
+  {
+    $(o).append("<p>" + name + " (" + $.timeago(when) + ") : " + message + "</p>");
+  }
+
 });
