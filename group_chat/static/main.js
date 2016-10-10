@@ -37,8 +37,13 @@ $(document).ready(function()
     addParagraphTag("#chats", chat.name, chat.message, chat.when);
 
     // Update how long it's been since each chat occurred.
-    // TODO: Fix bug in below line that ends up showing "timeagos" as the same.
-    $('.chattime').text($.timeago($('.chattime').attr("time")));
+    // TODO: Have periodic updates send from server instead
+    // to update client even if no activity is taking place?
+    $( ".chattime" ).each(function()
+    {
+      $(this).text($.timeago($(this).attr("time")));
+    });
+
   });
 
   // Helper function to build paragraph HTML tag with chat entry.
