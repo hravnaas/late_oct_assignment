@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="utf-8">
+  	<title>Dojo Mongoose Dashboard Assigment</title>
+  	<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div>
+      <% for(var i = 0; i < animals.length; i++) { %>
+        <p>Name: <%= animals[i].name %>
+          <a href="/animals/<%= animals[i].id %>">View</a>
+          <a href="/animals/<%= animals[i].id %>/edit">Edit</a>
+          <a href="/animals/<%= animals[i].id %>/destroy">Delete</a>
+        </p>
+        </p>
+      <% } %>
+      <p><a href="/animals/new">Add a new animal</a></p>
+    </div>
+  </body>
+</html>
