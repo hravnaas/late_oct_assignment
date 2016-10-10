@@ -33,13 +33,19 @@ $(document).ready(function()
   // Append a single chat message.
   socket.on('append_chat_message', function(chat)
   {
+    // Add in the new chat message.
     addParagraphTag("#chats", chat.name, chat.message, chat.when);
+
+    // Update how long it's been since each chat occurred.
+    // TODO: Fix bug in below line that ends up showing "timeagos" as the same.
+    $('.chattime').text($.timeago($('.chattime').attr("time")));
   });
 
   // Helper function to build paragraph HTML tag with chat entry.
   function addParagraphTag(o, name, message, when)
   {
-    $(o).append("<p>" + name + " (" + $.timeago(when) + ") : " + message + "</p>");
+    var spanTag = "<span class='chattime' time='" + when + "'>" + $.timeago(when) + "</span>";
+    $(o).append("<p><b>" + name + "</b> (" + spanTag + ") : <i>" + message + "</i></p>");
   }
 
 });
