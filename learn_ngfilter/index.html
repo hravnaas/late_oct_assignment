@@ -1,0 +1,66 @@
+<html ng-app='colorApp'>
+<head>
+  <title></title>
+  <script src='bower_components/angular/angular.js'></script>
+  <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
+  <script type='text/javascript'>
+    var myApp = angular.module('colorApp', []);
+    myApp.controller('colorController', ['$scope', function ($scope, $http)
+    {
+        // Load up all the colors when the page loads.
+        $http.get("/").then(
+          function(allColors)
+          {
+            console.log("Success");
+            for(var i = 0; i < allColors.length; i++)
+              $scope.allColors.push(allColors[i]);
+          },
+          function()
+          {
+            console.log("Error");
+          }
+      );
+    }])
+    .filter('gender', function()
+    {
+         return function(friends, gender)
+         {
+             if(!gender)
+               return users;
+
+             var arr = [];
+             angular.forEach(friends, function(f)
+             {
+               if(f.gender === gender)
+               {
+                 arr.push(f);
+               }
+             })
+
+           return arr;
+         }
+    });
+  </script>
+</head>
+<body>
+    <div ng-controller='colorController'>
+      <table style="width:50%">
+        <tr>
+          <th>Color Name</th>
+          <th>HEX</th>
+          <th>Color</th>
+        </tr>
+        <tr ng-repeat="color in allColors">
+          <td>{{ color.name }}</td>
+          <td>{{ color.value }}</td>
+          <td>n/a</td>
+
+        </tr>
+      </table>
+    </div>
+</body>
+</html>

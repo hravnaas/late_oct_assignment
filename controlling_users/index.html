@@ -1,0 +1,91 @@
+<html ng-app='app'>
+<head>
+  <title>Controlling Users Assignment</title>
+  <script src='bower_components/angular/angular.js'></script>
+  <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script type='text/javascript'>
+    var myApp = angular.module('app', []);
+    myApp.controller('userController', ['$scope', function ($scope)
+    {
+        // Load up static users when the page loads.
+        $scope.users =
+        [
+          { first_name : "Hans", last_name : "Ravnaas", language : "Pascal", date : new Date().toLocaleString() },
+          { first_name : "Doyle", last_name : "Ravnaas", language : "C#", date : new Date().toLocaleString() },
+          { first_name : "Per", last_name : "Thorsrud", language : "None", date : new Date().toLocaleString() }
+        ];
+
+        // Set up sorting
+        $scope.sortType = 'last_name';
+        $scope.sortReverse = false;
+
+        $scope.addUser = function()
+        {
+          $scope.newUser.date = new Date().toLocaleString();
+          $scope.users.push($scope.newUser);
+        };
+
+        $scope.deleteUser = function(index)
+        {
+          console.log(index);
+          $scope.users.splice(index - 1, 1);
+        };
+    }]);
+  </script>
+</head>
+<body>
+    <div ng-controller='userController'>
+      <form ng-submit="addUser()">
+        <p>First Name: <input type="text" name="first_name" ng-model="newUser.first_name"></p>
+        <p>Last Name: <input type="text" name="last_name" ng-model="newUser.last_name"></p>
+        <p>Favorite Language: <input type="text" name="language" ng-model="newUser.language"></p>
+        <input type="submit" name="adduser" value="Create User">
+      </form>
+
+      <p>Search: <input type="text" name="searchText" ng-model="filter_name"></p>
+      <table class="table table-striped">
+        <tr>
+          <th>
+            <a href="#" ng-click="sortType = 'first_name'; sortReverse = !sortReverse">
+            First Name
+            <span ng-show="sortType == 'first_name' && !sortReverse" class="fa fa-caret-up"></span>
+            <span ng-show="sortType == 'first_name' && sortReverse" class="fa fa-caret-down"></span>
+          </th>
+          <th>
+            <a href="#" ng-click="sortType = 'last_name'; sortReverse = !sortReverse">
+            Last Name
+            <span ng-show="sortType == 'last_name' && !sortReverse" class="fa fa-caret-up"></span>
+            <span ng-show="sortType == 'last_name' && sortReverse" class="fa fa-caret-down"></span>
+          </th>
+          <th>
+            <a href="#" ng-click="sortType = 'language'; sortReverse = !sortReverse">
+            Fav Language
+            <span ng-show="sortType == 'language' && !sortReverse" class="fa fa-caret-up"></span>
+            <span ng-show="sortType == 'language' && sortReverse" class="fa fa-caret-down"></span>
+          </th>
+          <th>
+            <a href="#" ng-click="sortType = 'date'; sortReverse = !sortReverse">
+            Date Added
+            <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-up"></span>
+            <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-down"></span>
+          </th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat="user in users | filter:filter_name | orderBy:sortType:sortReverse track by $index">
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.language }}</td>
+          <td>{{ user.date }}</td>
+          <td>
+            <button type="button" name="deleteUser" ng-click="deleteUser($index)">Delete User</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+</body>
+</html>
