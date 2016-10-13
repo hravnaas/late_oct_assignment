@@ -2,7 +2,7 @@
   <form>
      <p>Player:
        <select name="player" ng-model="assignment.player">
-         <option ng-repeat="playerteam in playersteams" ng-if="!playerteam.team" value="{{ playerteam.player }}">{{ playerteam.player }}</option>
+         <option ng-repeat="player in players" ng-if="!player.team" value="{{ player.name }}">{{ player.name }}</option>
        </select>
      </p>
      <p>Teams:
@@ -18,9 +18,9 @@
       <th>Name</th>
       <th>Team</th>
     </tr>
-    <tr ng-repeat="playerteam in playersteams" ng-if="playerteam.team">
-      <td>{{ playerteam.player }}</td>
-      <td>{{ playerteam.team }}</td>
+    <tr ng-repeat="player in players" ng-if="player.team">
+      <td>{{ player.name }}</td>
+      <td>{{ player.team }}</td>
       <td>
         <button type="button" name="clearAssignment" ng-click="clearAssignment($index)">Clear Assignment</button>
       </td>

@@ -6,17 +6,20 @@ app.factory('playerFactory', ['$http', function($http){
   var players =
   [
     // static players to make development easier.
-    { name : "Hans" },
-    { name : "Matt" },
-    { name : "Steven" },
-    { name : "Trump" }
+    { name : "Hans", team : "" },
+    { name : "Matt", team : "" },
+    { name : "Steven", team : "" },
+    { name : "Trump", team : "" }
   ];
 
   // Add a player
   factory.create = function(player)
   {
     if(player && player.name)
+    {
+      player.team = "";
       players.push(player);
+    }
   }
 
   // Delete a player
@@ -36,6 +39,39 @@ app.factory('playerFactory', ['$http', function($http){
   {
     callback(players);
   };
+
+  factory.addAssignment = function(playerName, teamName, callback)
+  {
+    for(var i = 0; i < players.length; i++)
+    {
+      if(players[i].name == playerName)
+      {
+        players[i].team = teamName;
+        break;
+      }
+    }
+
+    callback(players);
+  }
+
+  factory.clearAssignment = function(index, callback)
+  {
+    players[index].team = "";
+
+    callback(players);
+  }
+
+  factory.clearAssignmentsByTeam = function(team)
+  {
+    console.log("Looking to delete team: " + team.name);
+    for(var i = 0; i < players.length; i++)
+    {
+      if(players[i].team == team.name)
+      {
+        players[i].team = "";
+      }
+    }
+  }
 
   return factory;
 }]);

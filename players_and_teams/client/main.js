@@ -1,5 +1,7 @@
 
 var app = angular.module('app', ['ngRoute']);
+
+// The below should be moved into config/routes.js
 app.config(function($routeProvider){
   $routeProvider
     .when("/players", {

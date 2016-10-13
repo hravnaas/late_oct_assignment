@@ -27,8 +27,4 @@ app.controller('PlayersController', ['$scope', 'playerFactory', function ($scope
         $scope.players = players;
       });
     }
-
-    // Set up sorting
-    $scope.sortType = 'name';
-    $scope.sortReverse = false;
 }]);

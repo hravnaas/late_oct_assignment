@@ -1,6 +1,6 @@
 
 // Set up the controller.
-app.controller('TeamsController', ['$scope', 'teamFactory', function ($scope, teamFactory)
+app.controller('TeamsController', ['$scope', 'teamFactory', 'playerFactory', function($scope, teamFactory, playerFactory)
 {
     $scope.teams = [];
     teamFactory.index(function(teams)
@@ -26,10 +26,11 @@ app.controller('TeamsController', ['$scope', 'teamFactory', function ($scope, te
       teamFactory.delete(team, function(teams){
         // Update teams in $scope.
         $scope.teams = teams;
+
+        // If a team is deleted, we also need to
+        // remove that team from each player associated with it.
+        playerFactory.clearAssignmentsByTeam(team);
+
       });
     }
-
-    // Set up sorting
-    $scope.sortType = 'name';
-    $scope.sortReverse = false;
 }]);
