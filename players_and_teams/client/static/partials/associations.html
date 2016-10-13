@@ -17,12 +17,15 @@
     <tr>
       <th>Name</th>
       <th>Team</th>
+      <th>Actions</th>
     </tr>
     <tr ng-repeat="player in players" ng-if="player.team">
       <td>{{ player.name }}</td>
       <td>{{ player.team }}</td>
       <td>
         <button type="button" name="clearAssignment" ng-click="clearAssignment($index)">Clear Assignment</button>
+        <a href="#/{{ player.team }}">Show Team</a>
+        <!-- <a href="#/{{ player.team }} | filter: 'lowercase'">Show Team</a> -->
       </td>
     </tr>
   </table>
