@@ -79,7 +79,7 @@
             </th>
             <th>Actions</th>
           </tr>
-          <tr ng-repeat="product in products | orderBy:sortType:sortReverse track by $index">
+          < tr ng-repeat="product in products | orderBy:sortType:sortReverse track by $index">
             <td>{{ product.name }}</td>
             <td>{{ product.price | currency:"$" }}</td>
             <td>{{ product.quantity }}</td>

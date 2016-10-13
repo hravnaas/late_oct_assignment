@@ -1,0 +1,29 @@
+<div>
+  <form>
+     <p>Player:
+       <select name="player" ng-model="assignment.player">
+         <option ng-repeat="playerteam in playersteams" ng-if="!playerteam.team" value="{{ playerteam.player }}">{{ playerteam.player }}</option>
+       </select>
+     </p>
+     <p>Teams:
+       <select name="team" ng-model="assignment.team">
+          <option ng-repeat="team in teams" value="{{ team.name }}">{{ team.name }}</option>
+       </select
+     </p>
+     <p><button type="button" name="addassignment" ng-click="addAssignment()">Assign Player to Team</button></p>
+  </form>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Team</th>
+    </tr>
+    <tr ng-repeat="playerteam in playersteams" ng-if="playerteam.team">
+      <td>{{ playerteam.player }}</td>
+      <td>{{ playerteam.team }}</td>
+      <td>
+        <button type="button" name="clearAssignment" ng-click="clearAssignment($index)">Clear Assignment</button>
+      </td>
+    </tr>
+  </table>
+</div>

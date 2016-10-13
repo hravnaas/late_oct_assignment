@@ -1,0 +1,18 @@
+<div>
+  <form ng-submit="addPlayer()">
+    <p>Name: <input type="text" name="name" ng-model="newPlayer.name"></p>
+    <input type="submit" name="addplayer" value="Add Player">
+  </form>
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+    <tr ng-repeat="player in players | orderBy:sortType:sortReverse track by $index">
+      <td>{{ player.name }}</td>
+      <td>
+        <button type="button" name="deletePlayer" ng-click="deletePlayer(player)">Remove Player</button>
+      </td>
+    </tr>
+  </table>
+</div>
