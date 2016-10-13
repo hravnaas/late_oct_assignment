@@ -1,8 +1,16 @@
 <div>
-  <form ng-submit="addPlayer()">
-    <p>Name: <input type="text" name="name" ng-model="newPlayer.name"></p>
+  <form name="newPlayerForm" ng-submit="addPlayer()">
+    <p>Name: <input type="text" name="name" ng-model="newPlayer.name" ng-minlength="4" required></p>
     <input type="submit" name="addplayer" value="Add Player">
   </form>
+
+  <!-- Validation -->
+  <div ng-messages="newPlayerForm.name.$error" ng-if="newPlayerForm.name.$dirty">
+    <p ng-message="minlength">The player name is too short. Minimum length is 4.</p>
+    <p ng-message="required">The player name is required.</p>
+  </div>
+  <!-- Validation -->
+
   <table class="table table-striped">
     <tr>
       <th>Name</th>
