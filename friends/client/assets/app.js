@@ -1,5 +1,5 @@
 /* our angular app modularize, with config */
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'ngMessages']);
 
 /* configuration for angular route */
 app.config(function($routeProvider)

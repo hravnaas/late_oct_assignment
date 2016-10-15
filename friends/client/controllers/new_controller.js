@@ -19,10 +19,16 @@ app.controller('newController',
 
     $scope.create = function()
     {
-      friendsFactory.create($scope.newFriend, function(friend)
+      var friend = $scope.newFriend;
+      if(friend.first_name && friend.last_name)
       {
-        $location.url("/friends/index");
-      });
+        friendsFactory.create(friend, function(friend)
+        {
+          $location.url("/friends/index");
+        });
+      }
+      else
+        $location.url("/friends/new");
     };
 
     $scope.redirect = function(destination)

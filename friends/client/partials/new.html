@@ -1,9 +1,17 @@
 <h4>New Friend</h4>
-<form ng-submit="create()">
-  <p>First Name: <input type="text" ng-model='newFriend.first_name'></p>
-  <p>Last Name: <input type="text" ng-model='newFriend.last_name'></p>
+<form name="add_friend" ng-submit="create()">
+  <p>First Name: <input type="text" name="first_name" ng-model='newFriend.first_name' ng-minlength="2" required></p>
+  <p>Last Name: <input type="text" name="last_name" ng-model='newFriend.last_name' ng-minlength="2" required></p>
   <p>Birthday: <input type="date" ng-model='newFriend.birthday'></p>
   <input type="submit" value="Create">
 </form>
+<div ng-messages="add_friend.first_name.$error" ng-if="add_friend.first_name.$dirty" ng-if="add_friend.last_name.$dirty">
+     <p class="redText" ng-message="minlength">The first name is too short. It needs to be at least 2 characters.</p>
+     <p class="redText" ng-message="required">The first name is required.</p>
+ </div>
+ <div ng-messages="add_friend.last_name.$error" ng-if="add_friend.last_name.$dirty" ng-if="add_friend.first_name.$dirty">
+      <p class="redText" ng-message="minlength">The last name is too short. It needs to be at least 2 characters.</p>
+      <p class="redText" ng-message="required">The last name is required.</p>
+  </div>
 <br>
 <a ng-href = "#/friends/index">Home</a>
