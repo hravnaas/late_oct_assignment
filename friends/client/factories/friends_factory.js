@@ -25,7 +25,7 @@ app.factory('friendsFactory', ['$http', function($http)
     // Update an existing friend.
     this.update = function(friend, callback)
     {
-      $http.put('/friends/' + friend.id, friend)
+      $http.put('/friends/' + friend._id, friend)
         .then(function(returned_data)
         {
           if(typeof(callback) == 'function')
@@ -47,9 +47,9 @@ app.factory('friendsFactory', ['$http', function($http)
     };
 
     // Delete a friend.
-    this.delete = function()
+    this.delete = function(id, callback)
     {
-      $http.delete('/friends/' + friend.id)
+      $http.delete('/friends/' + id)
         .then(function(returned_data)
         {
           if(typeof(callback) == 'function')
@@ -60,9 +60,9 @@ app.factory('friendsFactory', ['$http', function($http)
     };
 
     // Get the specified friend.
-    this.show = function(id)
+    this.show = function(_id)
     {
-      $http.get('/friends/' + id)
+      $http.get('/friends/' + _id)
         .then(function(returned_data)
         {
           friend = returned_data.data.friend;
@@ -77,12 +77,12 @@ app.factory('friendsFactory', ['$http', function($http)
     };
 
     // Get the friend with the specified ID.
-    this.getFriend = function(id, callback)
+    this.getFriend = function(_id, callback)
     {
       friend = null;
       for(var i = 0; i < friends.length; i++)
       {
-        if(friends[i].id === id)
+        if(friends[i]._id === _id)
         {
           friend = friends[i];
           break;

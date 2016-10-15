@@ -5,22 +5,32 @@ var app = angular.module('app', ['ngRoute']);
 app.config(function($routeProvider)
 {
   $routeProvider
-    .when('/index', {
+    .when('/friends/index', {
       templateUrl: '/partials/index.html',
       controller: 'newController',
       controllerAs: 'NC'
     })
-    .when('/edit/:id', {
-      templateUrl: '/partials/edit.html',
-      controller: 'editController',
-      controllerAs: 'EC'
-    })
-    .when('/new', {
+    .when('/friends/new', {
       templateUrl: '/partials/new.html',
       controller: 'newController',
       controllerAs: 'NC'
     })
+    .when('/friends/:id/edit', {
+      templateUrl: '/partials/edit.html',
+      controller: 'editController',
+      controllerAs: 'EC'
+    })
+    .when('/friends/:id/delete', {
+      templateUrl: '/partials/delete.html',
+      controller: 'editController',
+      controllerAs: 'EC'
+    })
+    .when('/friends/:id', {
+      templateUrl: '/partials/show.html',
+      controller: 'editController',
+      controllerAs: 'EC'
+    })
     .otherwise({
-      redirectTo: '/index'
+      redirectTo: '/friends/index'
     });
 });

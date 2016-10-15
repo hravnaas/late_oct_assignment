@@ -3,33 +3,33 @@ app.controller('newController',
   'friendsFactory',
   '$location',
   function($scope, friendsFactory, $location)
-{
-  $scope.friends = [];
-  $scope.friend = {};
-
-  var index = function()
   {
-    console.log("Client - in index");
-    friendsFactory.index(function(returnedData)
+    $scope.sortType = "last_name";
+
+    $scope.friends = [];
+    $scope.friend = {};
+
+    var index = function()
     {
-      $scope.friends = returnedData;
-      console.log("Client - got result from index: " + returnedData);
-    });
-  };
+      friendsFactory.index(function(returnedData)
+      {
+        $scope.friends = returnedData;
+      });
+    };
 
-  $scope.create = function()
-  {
-    friendsFactory.create($scope.newFriend, function(friend)
+    $scope.create = function()
     {
-      $location.url("/index");
-    });
-  };
+      friendsFactory.create($scope.newFriend, function(friend)
+      {
+        $location.url("/friends/index");
+      });
+    };
 
-  $scope.redirect = function(destination)
-  {
-    $location.url(destination);
-  }
+    $scope.redirect = function(destination)
+    {
+      $location.url(destination);
+    }
 
-  // Get all our users when the controllers loads.
-  index();
-}]);
+    // Get all our users when the controllers loads.
+    index();
+  }]);

@@ -65,23 +65,6 @@ module.exports =
       }
     });
   },
-  enter_update : function(req, res)
-  {
-    // Show the requested friend so that it can be edited.
-    Friend.findById(req.params.id , function(err, friend)
-    {
-      if(err)
-      {
-        console.log("ERROR: " + err);
-        res.send("Unable to get friend with id '" + req.params.id +  "' from the database'.");
-      }
-      else
-      {
-        // Database query was successful. Send the result set on to the client.
-        res.json({ friend: friend });
-      }
-    });
-  },
   update : function(req, res)
   {
     // Update the requested friend.
@@ -102,8 +85,8 @@ module.exports =
       }
       else
       {
-        // Database update was successful. Send the user back to the home page.
-        res.redirect("/");
+        // Database update was successful.
+        res.json({ friend: friend });
       }
     });
   },
@@ -119,8 +102,8 @@ module.exports =
       }
       else
       {
-        // Database delete was successful. Send the user back to the home page.
-        res.redirect("/");
+        // Database deletion was successful.
+        res.json({ friend: friend });
       }
     });
   }

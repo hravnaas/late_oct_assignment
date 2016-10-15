@@ -6,6 +6,7 @@ app.controller('editController',
   function($scope, friendsFactory, $routeParams, $location)
   {
     $scope.id = $routeParams.id;
+
      $scope.show = function()
      {
        friendsFactory.getFriend($scope.id, function(returnedData)
@@ -14,17 +15,20 @@ app.controller('editController',
        });
      };
 
-     $scope.update = function(friend)
+     $scope.update = function()
      {
-       friendsFactory.update(friend, function(){
-         $location.url('/');
+       friendsFactory.update($scope.friend, function(returnedData){
+         $location.url('/friends/index');
        })
-     }
+     };
 
-     $scope.delete = function()
+     $scope.delete = function(id)
      {
-       friendsFactory.delete($scope.id, function(){
-         $location.url('/');
+       friendsFactory.delete(id, function()
+       {
+         $location.url('/friends/index');
        });
      };
+
+     $scope.show();
 }]);

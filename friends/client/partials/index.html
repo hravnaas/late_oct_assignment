@@ -1,6 +1,6 @@
 <br>
-<p><input type="text" name="filter" placeholder="Enter filter"></p>
-<p><button type="button" name="newFriend" ng-click="redirect('/new')">New Friend</button></p>
+<p><input type="text" name="filter" ng-model="filter_text" placeholder="Enter filter"></p>
+<p><button type="button" name="newFriend" ng-click="redirect('/friends/new')">New Friend</button></p>
 <br>
 <br>
 <table class="table table-striped">
@@ -10,7 +10,7 @@
     <th>Update</th>
     <th>Delete</th>
   </tr>
-  <tr ng-repeat="friend in friends | orderBy:sortType:sortReverse">
+  <tr ng-repeat="friend in friends | filter:filter_text | orderBy:sortType">
     <td>{{ friend.first_name }} {{ friend.last_name }}</td>
     <td><a href="#/friends/{{ friend._id }}">show</a></td>
     <td><a href="#/friends/{{ friend._id }}/edit">edit</a></td>
