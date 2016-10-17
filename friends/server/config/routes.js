@@ -2,11 +2,28 @@
 // Import requirements.
 var mongoose = require("mongoose");
 var friends = require("../controllers/friends.js");
-var bodyParser = require('body-parser');
+var users = require("../controllers/users.js");
 
 // Handle incoming route requests.
 module.exports = function(app)
 {
+  ////////// Login & Registration - start //////////
+
+  app.post('/friends/register', function(req, res)
+  {
+    users.register(req, res);
+  });
+
+  app.post('/friends/login', function(req, res)
+  {
+    users.login(req, res);
+  });
+
+  ////////// Login & Registration - end //////////
+
+
+  ////////// Friend Application //////////
+
   // Add a new friend.
   app.post('/friends', function(req, res)
   {

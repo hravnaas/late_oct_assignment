@@ -30,5 +30,14 @@ app.controller('editController',
        });
      };
 
+     // Check if user is logged in.
+     var loggedIn = usersFactory.isLoggedIn(function(user)
+     {
+       $scope.user = user;
+     });
+
+     if(!loggedIn)
+       $location.url("/friends/login");
+
      $scope.show();
 }]);

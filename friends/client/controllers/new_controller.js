@@ -2,7 +2,8 @@ app.controller('newController',
   ['$scope',
   'friendsFactory',
   '$location',
-  function($scope, friendsFactory, $location)
+  'usersFactory',
+  function($scope, friendsFactory, $location, usersFactory)
   {
     $scope.sortType = "last_name";
 
@@ -36,6 +37,26 @@ app.controller('newController',
       $location.url(destination);
     }
 
-    // Get all our users when the controllers loads.
+    // Logs out the current user.
+    $scope.logout = function()
+    {
+      usersFactory.logout(function(user)
+      {
+        console.log("client user controller: User logged out.");
+        $scope.user = user;
+        $location.url('/friends/login');
+      });
+    };
+
+    // Check if user is logged in.
+    var loggedIn = usersFactory.isLoggedIn(function(user)
+    {
+      $scope.user = user;
+    });
+
+    if(!loggedIn)
+      $location.url("/friends/login");
+
+    // Get all our users when the controllers loads after the user is logged in.
     index();
   }]);

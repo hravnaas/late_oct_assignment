@@ -5,6 +5,11 @@ var app = angular.module('app', ['ngRoute', 'ngMessages']);
 app.config(function($routeProvider)
 {
   $routeProvider
+    .when('/friends/login', {
+      templateUrl: '/partials/login.html',
+      controller: 'userController',
+      controllerAs: 'UC'
+    })
     .when('/friends/index', {
       templateUrl: '/partials/index.html',
       controller: 'newController',
