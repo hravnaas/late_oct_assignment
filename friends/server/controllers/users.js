@@ -13,16 +13,6 @@ module.exports =
         // TODO: Add validation here?
         // TODO: passwd and confirmed passwd much match.
         first_name : req.body.first_name,
-
-        // TODO: Work in progress.
-        // first_name : {
-        //               type: String,
-        //               required: [true, "this is for something else"],
-        //           trim: true,
-        //           minlength: 8,
-        // maxlength: 32,
-        //         }
-
         last_name : req.body.last_name,
         email : req.body.email,
         birthday : req.body.birthday,
@@ -34,7 +24,7 @@ module.exports =
       if(err)
       {
         console.log("ERROR: " + err);
-        res.send("Unable to save user '" + req.body.last_name + "' to the database.");
+        res.json({ error : err });
       }
       else
       {

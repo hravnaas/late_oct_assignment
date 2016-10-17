@@ -16,12 +16,23 @@ app.factory('usersFactory', ['$http', function($http)
         .then(function(returned_data)
         {
           // Set the new user as the logged in user.
+          // ValidationError: Email failed validation. Please enter a valid email address.
+          if(returned_data.data.error)
+          {
+            // TODO: Build up JSON object with errors
+            // and return.
+          }
+
           user = returned_data.data.user;
           if(typeof(callback) == 'function')
           {
             callback(user);
           }
-      });
+        },
+        function(err)
+        {
+          console.log(err);
+        });
     };
 
     // Log in an existing user.
