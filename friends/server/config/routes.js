@@ -19,6 +19,16 @@ module.exports = function(app)
     users.login(req, res);
   });
 
+  app.get('/friends/logout', function(req, res)
+  {
+    users.logout(req, res);
+  });
+
+  app.get('/friends/getLoggedInUser', function(req, res)
+  {
+    users.getLoggedInUser(req, res);
+  });
+
   ////////// Login & Registration - end //////////
 
 

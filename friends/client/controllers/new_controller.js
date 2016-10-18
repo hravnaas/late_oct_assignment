@@ -9,6 +9,7 @@ app.controller('newController',
 
     $scope.friends = [];
     $scope.friend = {};
+    $scope.user = null;
 
     var index = function()
     {
@@ -42,21 +43,21 @@ app.controller('newController',
     {
       usersFactory.logout(function(user)
       {
-        console.log("client user controller: User logged out.");
         $scope.user = user;
         $location.url('/friends/login');
       });
     };
 
-    // Check if user is logged in.
-    var loggedIn = usersFactory.isLoggedIn(function(user)
+    // Check if user is logged in when controller loads.
+    // If so, show the index page. If not, redirect to login.
+    usersFactory.getLoggedInUser(function(result)
     {
-      $scope.user = user;
+      $scope.user = result.user;
+      if(!$scope.user)
+        $location.url("/friends/login");
+      else
+        // Get all our users when the controllers loads
+        // after the user is logged in.
+        index();
     });
-
-    if(!loggedIn)
-      $location.url("/friends/login");
-
-    // Get all our users when the controllers loads after the user is logged in.
-    index();
   }]);

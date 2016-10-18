@@ -12,6 +12,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'client')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
+// Setup support for using sessions.
+// Stolen with love from https://github.com/expressjs/session
+app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true, //possible this should be false!!
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
 // Load up the file that handles the database connection.
 require("./server/config/mongoose.js");
 
@@ -23,12 +33,3 @@ routes_setter(app);
 app.listen(port, function() {
     console.log("listening on port " + port);
 });
-
-// use this
-// app.set('trust proxy', 1) // trust first proxy
-// app.use(session({
-//   secret: 'keyboard cat',
-//   resave: true, possible this should be false!!
-//   saveUninitialized: true,
-//   cookie: { secure: false }
-// }))

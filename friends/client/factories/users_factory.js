@@ -32,6 +32,7 @@ app.factory('usersFactory', ['$http', function($http)
         },
         function(err)
         {
+          // TODO: Handle this better.
           console.log(err);
         });
     };
@@ -57,47 +58,33 @@ app.factory('usersFactory', ['$http', function($http)
       });
     };
 
-    // Log out the current user.
     this.logout = function(callback)
     {
-      user = {};
-      if(typeof(callback) == 'function')
-      {
-        callback(user);
-      };
+      $http.get("/friends/logout")
+        .then(function(returned_data)
+        {
+          user = returned_data.data.user;
+          if(typeof(callback) == 'function')
+          {
+            callback({ user : user });
+          }
+      });
     };
 
-    this.isLoggedIn = function(callback)
+    // Check if the user is logged in.
+    // If 'user' comes back as null, a user is not logged in.
+    this.getLoggedInUser = function(callback)
     {
-      if(typeof(callback) == 'function')
-      {
-        callback(user);
-      };
-      return user.email !== undefined;
+      $http.get("/friends/getLoggedInUser")
+        .then(function(returned_data)
+        {
+          user = returned_data.data.user;
+          if(typeof(callback) == 'function')
+          {
+            callback({ user : user });
+          }
+      });
     };
-
-    // after below, CREATE ROUTE IN SERVER then goes to server controller.
-    // if(req.session.user)
-    //   res.json({user: req.session.user});
-    // else {
-    //   res.json({user: null});
-    // }
-
-    // for logout, have a /logout route in the server backend.
-    // logout : function(req, res){
-    //   req.session.destroy();
-    //   res.json({ done : "done"});
-    // Ray did: res.redirect('/');
-    // };
-
-    // this code stays here. Above code goes in server controller for user/session.
-    // this.checkUser = function(callback){
-    //   $http.get("/checkUser")
-    //     .then(function(data){
-    //       callback(data.data);
-    //     })
-
-    //}
   }
 
   return new UsersFactory();

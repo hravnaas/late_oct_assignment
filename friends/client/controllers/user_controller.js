@@ -5,7 +5,7 @@ app.controller('userController',
   function($scope, usersFactory, $location)
   {
     // The currently logged in user.
-    $scope.user = {};
+    $scope.user = null;
 
     // Register a new user.
     $scope.register = function()
@@ -53,15 +53,8 @@ app.controller('userController',
     {
       usersFactory.logout(function(user)
       {
-        console.log("client user controller: User logged out.");
         $scope.user = user;
         $location.url('/friends/login');
       });
     };
-
-    // todo
-    // UsersFactory.checkUser(function(data){
-    //   $scope.currentUser = data;
-    //});
-
   }]);

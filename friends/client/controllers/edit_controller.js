@@ -31,14 +31,14 @@ app.controller('editController',
       });
     };
 
-    // Check if user is logged in.
-    var loggedIn = usersFactory.isLoggedIn(function(user)
+    // Check if user is logged in when controller loads.
+    // If so, show the index page. If not, redirect to login.
+    usersFactory.getLoggedInUser(function(result)
     {
-     $scope.user = user;
+      $scope.user = result.user;
+      if(!$scope.user)
+        $location.url("/friends/login");
+      else
+        $scope.show();
     });
-
-    if(!loggedIn)
-     $location.url("/friends/login");
-
-    $scope.show();
 }]);

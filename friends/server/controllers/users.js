@@ -10,9 +10,10 @@ module.exports =
     // Validate the new user's confirmed password.
     if(req.body.password !== req.body.cpassword)
     {
+      req.session.destroy();
       var err =
       {
-        errors : { password : { message : "Password and Confirmed Password don't match.", value : req.body.cpassword } },
+        errors : { password : { message : "'Password' and 'Confirmed Password' don't match.", value : req.body.cpassword } },
         message : "Bad passwords",
         name: Error
       };
@@ -33,21 +34,17 @@ module.exports =
     {
       if(err)
       {
+        req.session.destroy();
         console.log("ERROR: " + err);
         res.json({ errors : err });
       }
       else
       {
-        // All good. Return the new friend to the caller.
+        // All good. Return the new user to the caller.
+        req.session.user = user;
+        req.session.save();
         res.json({ user : user });
       }
-
-      // FIGURE OUT
-      //https://github.com/expressjs/session
-      // req.session.user = user;
-      //req.session.save();
-      // return req.json({status : true, user:user});
-
     });
   },
   login : function(req, res)
@@ -58,6 +55,7 @@ module.exports =
       if(err)
       {
         console.log("ERROR: " + err);
+        req.session.destroy();
         res.json({ errors : err });
       }
       else if(user == undefined)
@@ -65,6 +63,7 @@ module.exports =
         // TODO: If only caring about email, we could create the user
         // here if it wasn't found.
         // The email address was not found.
+        req.session.destroy();
         var err =
         {
           errors : { email : { message : "Unknown email address", value : req.body.email } },
@@ -78,10 +77,13 @@ module.exports =
         // Found user. Check if the supplied password matches.
         if(bcrypt.compareSync(req.body.password, user.password))
         {
+          req.session.user = user;
+          req.session.save();
           res.json({ user : user });
         }
         else
         {
+          req.session.destroy();
           var err =
           {
             // Displaying the password to the user is obviously bad practice.
@@ -93,5 +95,19 @@ module.exports =
         }
       }
     });
+  },
+  logout : function(req, res)
+  {
+    req.session.destroy();
+    res.json({ user : null });
+  },
+  // Indicates whether a user is logged in by either returning
+  // a valid user object or returning null meaning no one is logged in.
+  getLoggedInUser : function(req, res)
+  {
+    if(req.session.user)
+      res.json({ user : req.session.user });
+    else
+      res.json({ user: null });
   }
 }
