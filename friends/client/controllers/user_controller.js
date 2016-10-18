@@ -11,22 +11,40 @@ app.controller('userController',
     $scope.register = function()
     {
       $scope.user = {};
-      usersFactory.register($scope.newUser, function(user)
+      usersFactory.register($scope.newUser, function(result)
       {
         // A registration is treated as a registration
         // followed by an implicit login.
-        $scope.user = user;
-        $location.url('/friends/index');
+        if(result.errors)
+        {
+          $scope.errors = result.errors;
+          $location.url('/friends/login');
+        }
+        else
+        {
+          $scope.user = result.user;
+          $scope.errors = null;
+          $location.url('/friends/index');
+        }
       });
     };
 
     // Log in the user.
     $scope.login = function()
     {
-      usersFactory.login($scope.currentUser, function(user)
+      usersFactory.login($scope.currentUser, function(result)
       {
-        $scope.user = user;
-        $location.url('/friends/index');
+        if(result.errors)
+        {
+          $scope.errors = result.errors;
+          $location.url('/friends/login');
+        }
+        else
+        {
+          $scope.user = result.user;
+          $scope.errors = null;
+          $location.url('/friends/index');
+        }
       });
     };
 
@@ -40,4 +58,10 @@ app.controller('userController',
         $location.url('/friends/login');
       });
     };
+
+    // todo
+    // UsersFactory.checkUser(function(data){
+    //   $scope.currentUser = data;
+    //});
+
   }]);

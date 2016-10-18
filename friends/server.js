@@ -1,5 +1,6 @@
 // Import required modules.
 var express = require('express');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
 var port = 9000;
@@ -22,3 +23,12 @@ routes_setter(app);
 app.listen(port, function() {
     console.log("listening on port " + port);
 });
+
+// use this
+// app.set('trust proxy', 1) // trust first proxy
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: true, possible this should be false!!
+//   saveUninitialized: true,
+//   cookie: { secure: false }
+// }))
