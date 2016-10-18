@@ -1,0 +1,9 @@
+*{
+  /*outline: 1px dotted black;*/
+}
+.redText{
+  color: red;
+}
+.indented20{
+  margin-left: 20px;
+}
