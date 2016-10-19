@@ -1,0 +1,20 @@
+<br>
+<p>Hello, {{ user.name }} (<a href ng-click="logout()">log out</a>)</p>
+<p><input type="text" name="filter" ng-model="filter_text" placeholder="Enter filter"></p>
+<p><button type="button" name="newFriend" ng-click="redirect('/friends/new')">New Friend</button></p>
+<br>
+<br>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Show</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
+  <tr ng-repeat="friend in friends | filter:filter_text | orderBy:sortType">
+    <td>{{ friend.first_name }} {{ friend.last_name }}</td>
+    <td><a href="#/friends/{{ friend._id }}">show</a></td>
+    <td><a href="#/friends/{{ friend._id }}/edit">edit</a></td>
+    <td><a href="#/friends/{{ friend._id }}/delete">delete</a></td>
+  </tr>
+</table>

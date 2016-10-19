@@ -6,7 +6,7 @@ module.exports =
 {
   login : function(req, res)
   {
-    UserBasic.findOne( { nae : req.body.name }, function(err, user){
+    UserBasic.findOne( { name : req.body.name }, function(err, user){
       if(err)
       {
         console.log("ERROR: " + err);

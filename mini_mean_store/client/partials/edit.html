@@ -1,0 +1,9 @@
+<h4>Edit Friend</h4>
+<form ng-submit = "update()">
+  <p>First Name: <input type="text" ng-model='friend.first_name' placeholder='{{friend.first_name}}'></p>
+  <p>Last Name: <input type="text" ng-model='friend.last_name' placeholder='{{friend.last_name}}'></p>
+  <p>Birthday: <input type="text" ng-model='friend.birthday' placeholder='{{friend.birthday}}'></p>
+  <input type="submit"  value="Update">
+</form>
+<br>
+<a ng-href = "#/friends/index">Home</a>

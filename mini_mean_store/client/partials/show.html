@@ -1,0 +1,7 @@
+<h4>Show Friend</h4>
+<p>First Name: {{ friend.first_name }}</p>
+<p>Last Name: {{ friend.last_name }}</p>
+<p>Birthday: {{ friend.birthday | date : 'shortDate' }}</p>
+<p>User Added: {{ friend.created_at | date : 'medium' }}</p>
+<br>
+<a ng-href = "#/friends/index">Home</a>
