@@ -1,0 +1,19 @@
+<br>
+<h2>Full MEAN Wall</h2>
+<p>Welcome, {{ user.name }}! (<a href ng-click="logout()">log out</a>)</p>
+<hr>
+<p>Post a message</p>
+<p><input type="text" name="message" ng-model="message.text" placeholder="What's on your mind?"></p>
+<p><button type="button" name="newMessage" ng-click="new()">Post a message</button></p>
+<br>
+<hr>
+<div class="indented20" ng-repeat="msg in messages | orderBy:sortType:sortReverse">
+  <h5><b>{{ msg._user.name }}</b> - {{ msg.createdAt | date:'short' }}</h5>
+  <p>{{ msg.text }}</p>
+  <div class="indented40" ng-repeat="comment in msg.comments | orderBy:sortType:!sortReverse">
+    <h5><b>{{ comment._user.name }}</b> - {{ comment.createdAt | date:'short' }}</h5>
+    <p>{{ comment.text }}</p>
+  </div>
+  <p class="indented40"><input type="text" ng-model="newComment.text" placeholder="Care to comment?"></p>
+  <p class="indented40"><button type="button" name="newcomment" ng-click="comment(msg._id)">Post a comment</button></p>
+</div>
