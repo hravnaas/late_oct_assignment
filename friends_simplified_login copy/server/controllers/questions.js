@@ -24,6 +24,7 @@ module.exports =
   // Add a new question
   create : function(req, res)
   {
+    console.log("Adding question");
     console.log(req.body);
     var question = new Question(
       {
@@ -53,7 +54,7 @@ module.exports =
   {
     // Show the requested question.
     Question.findById(req.params.id)
-    populate(
+    .populate(
           {
             path : "answers",
             populate : { path : "_user" }
@@ -75,24 +76,5 @@ module.exports =
         }
       }
     );
-
-
-
-    // Show the requested question.
-    // Question.findById(req.params.id , function(err, question)
-    // {
-    //   if(err)
-    //   {
-    //     console.log("ERROR: " + err);
-    //     res.json({ errors : err });
-    //   }
-    //   else
-    //   {
-    //     // Database query was successful.
-    //     res.json({ question : question });
-    //   }
-    // }
-
-  //);
   }
 }

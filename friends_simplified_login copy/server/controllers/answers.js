@@ -18,6 +18,8 @@ module.exports =
       else
       {
         // We found the question the answer is for. Create an answer.
+        console.log("Adding answer");
+        console.log(req.body);
         var answer = new Answer(
           {
             text : req.body.text,
@@ -58,5 +60,35 @@ module.exports =
         })
       }
   });
+},
+like : function(req, res)
+{
+  // First find the answer the like is for.
+  Answer.findById(req.params.id, function(err, answer)
+  {
+    if(err)
+    {
+      console.log("ERROR: " + err);
+      res.json({ errors : err });
+    }
+    else
+    {
+      // We found the answer the like is for. Update it.
+      console.log(answer);
+      answer.numLikes = answer.numLikes + 1;
+      answer.save(function(err)
+      {
+          if(err)
+          {
+            console.log("ERROR: " + err);
+            res.json({ errors : err });
+          }
+          else
+          {
+            res.json({ answer : answer });
+          }
+      })
+    }
+  })
 }
 }

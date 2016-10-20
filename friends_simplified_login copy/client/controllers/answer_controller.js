@@ -21,6 +21,7 @@ app.controller('answerController',
     $scope.create = function()
     {
       $scope.newAnswer.questionID = $scope.questionID;
+      $scope.newAnswer.userID = $scope.user._id;
       answersFactory.create($scope.newAnswer, function(result)
       {
         if(result.errors)
@@ -35,11 +36,16 @@ app.controller('answerController',
       });
     };
 
-    $scope.update = function()
+    $scope.like = function(answer)
     {
-      friendsFactory.update($scope.friend, function(returnedData){
-       $location.url('/friends/index');
+      answersFactory.like(answer, function(returnedData){
+        $scope.show();
       })
+    };
+
+    $scope.redirect = function(destination)
+    {
+      $location.url(destination);
     };
 
     // Check if user is logged in when controller loads.
